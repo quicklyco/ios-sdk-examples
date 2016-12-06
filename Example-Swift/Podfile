@@ -1,0 +1,14 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+source 'https://github.com/zowdow/podspecs_staging.git'
+
+target 'Example-Swift' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Example-Swift
+
+pod 'ZowdowSDK'
+
+end
