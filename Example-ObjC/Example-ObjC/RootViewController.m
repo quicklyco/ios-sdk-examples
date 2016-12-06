@@ -28,18 +28,17 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    _carouselType = ZowdowRotaryCarouselType;
+    self.carouselType = ZowdowRotaryCarouselType;
     
     [ZowdowSDK sharedInstance].appKey = @"some key";
     
-    _searchField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    _searchField.autocorrectionType = UITextAutocorrectionTypeNo;
-    [_searchField becomeFirstResponder];
+    self.searchField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.searchField.autocorrectionType = UITextAutocorrectionTypeNo;
+    [self.searchField becomeFirstResponder];
+    [self.searchField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
-    _suggestionsLoader = [[ZowdowSuggestionsLoader alloc] init];
-    _suggestionsLoader.delegate = self;
-    
-    [_searchField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    self.suggestionsLoader = [[ZowdowSuggestionsLoader alloc] init];
+    self.suggestionsLoader.delegate = self;
     
     self.tableView.rowHeight = 100;
 }
@@ -52,7 +51,7 @@
 #pragma mark -
 
 -(void)textFieldDidChange :(UITextField *)theTextField{
-    [_suggestionsLoader loadSuggestionsForFragment: theTextField.text];
+    [self.suggestionsLoader loadSuggestionsForFragment: theTextField.text];
 }
 
 - (IBAction)changeCarouselAction:(id)sender {
@@ -72,7 +71,7 @@
 -(void)addAction:(NSString*)title toAlertController:(UIAlertController*)controller
 {
     UIAlertAction* act = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _carouselType = [controller.actions indexOfObject:action];
+        self.carouselType = [controller.actions indexOfObject:action];
         [self.tableView reloadData];
     }];
     [controller addAction:act];
@@ -82,7 +81,7 @@
 
 -(void)zowdowSuggestionsLoader:(ZowdowSuggestionsLoader *)loader didReceiveSuggestions:(ZowdowSuggestionsContainer *)container
 {
-    _suggestionsContainer = container;
+    self.suggestionsContainer = container;
     [self.tableView reloadData];
 }
 
@@ -99,8 +98,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (_suggestionsContainer) {
-        return _suggestionsContainer.suggestionsCount;
+    if (self.suggestionsContainer) {
+        return self.suggestionsContainer.suggestionsCount;
     }
     return 0;
 }
@@ -108,9 +107,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"CarouselCell"];
-    if (_suggestionsContainer) {
+    if (self.suggestionsContainer) {
         ZowdowSuggestionCellConfiguration *config = [ZowdowSuggestionCellConfiguration defaultConfiguration];
-        cell = [_suggestionsContainer cellForTableView:tableView atIndexPath:indexPath configuration:config cardsCarouselType:_carouselType];
+        cell = [self.suggestionsContainer cellForTableView:tableView atIndexPath:indexPath configuration:config cardsCarouselType:self.carouselType];
     }
     
     return cell;
@@ -125,6 +124,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-
 
 @end
