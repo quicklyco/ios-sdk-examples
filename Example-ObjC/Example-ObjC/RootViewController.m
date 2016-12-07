@@ -11,9 +11,8 @@
 
 @interface RootViewController () <ZowdowSuggestionsLoaderDelegate>
     
-@property (nonatomic, retain) ZowdowSuggestionsLoader *suggestionsLoader;
-@property (nonatomic, retain) ZowdowSuggestionsContainer *suggestionsContainer;
-@property (nonatomic, assign) ZowdowCarouselType carouselType;
+@property (nonatomic, strong) ZowdowSuggestionsLoader *suggestionsLoader;
+@property (nonatomic, strong) ZowdowSuggestionsContainer *suggestionsContainer;
 
 @end
 
@@ -27,8 +26,6 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    self.carouselType = ZowdowRotaryCarouselType;
     
     [ZowdowSDK sharedInstance].appKey = @"some key";
     
@@ -53,29 +50,6 @@
 -(void)textFieldDidChange :(UITextField *)theTextField{
     [self.suggestionsLoader loadSuggestionsForFragment: theTextField.text];
 }
-
-- (IBAction)changeCarouselAction:(id)sender {
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Carousel Types" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-
-    [self addAction:@"Linear" toAlertController:alertController];
-    [self addAction:@"Linear B" toAlertController:alertController];
-    [self addAction:@"Cards" toAlertController:alertController];
-    [self addAction:@"Cover Flow" toAlertController:alertController];
-    [self addAction:@"Rotary" toAlertController:alertController];
-    [self addAction:@"Inline" toAlertController:alertController];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
--(void)addAction:(NSString*)title toAlertController:(UIAlertController*)controller
-{
-    UIAlertAction* act = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        self.carouselType = [controller.actions indexOfObject:action];
-        [self.tableView reloadData];
-    }];
-    [controller addAction:act];
-}
     
 #pragma mark - ZowdowSuggestionsLoaderDelegate
 
@@ -92,10 +66,6 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (self.suggestionsContainer) {
@@ -109,9 +79,8 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"CarouselCell"];
     if (self.suggestionsContainer) {
         ZowdowSuggestionCellConfiguration *config = [ZowdowSuggestionCellConfiguration defaultConfiguration];
-        cell = [self.suggestionsContainer cellForTableView:tableView atIndexPath:indexPath configuration:config cardsCarouselType:self.carouselType];
-    }
-    
+        cell = [self.suggestionsContainer cellForTableView:tableView atIndexPath:indexPath configuration:config cardsCarouselType:ZowdowLinearBCarouselType];
+    }    
     return cell;
 }
 

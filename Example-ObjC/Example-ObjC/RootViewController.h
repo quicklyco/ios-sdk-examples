@@ -12,6 +12,4 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
 
-- (IBAction)changeCarouselAction:(id)sender;
-
 @end

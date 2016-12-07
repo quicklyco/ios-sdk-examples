@@ -35,17 +35,12 @@
                     <navigationItem key="navigationItem" id="VT3-46-HQO">
                         <nil key="title"/>
                         <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="9kJ-P2-8tB">
-                            <rect key="frame" x="8" y="7" width="307" height="30"/>
+                            <rect key="frame" x="34" y="7" width="307" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <barButtonItem key="rightBarButtonItem" title="Type" id="9HC-F0-L9h">
-                            <connections>
-                                <action selector="changeCarouselAction:" destination="knm-6b-BGu" id="CVF-bC-NXT"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="searchField" destination="9kJ-P2-8tB" id="QYw-8U-wdW"/>
