@@ -9,42 +9,32 @@
 import UIKit
 
 class RootViewController: UITableViewController {
-
-    @IBOutlet weak var searchField: UITextField!
     
     let suggestionsLoader = ZowdowSuggestionsLoader()
     var suggestionsContainer: ZowdowSuggestionsContainer?
+    let searchBar = UISearchBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
         ZowdowSDK.sharedInstance().appKey = "some key"
         
-        searchField.autocapitalizationType = .none
-        searchField.autocorrectionType = .no
-        searchField.becomeFirstResponder()
-        searchField.addTarget(self, action: #selector(textFieldDidChange(field:)), for: .editingChanged)
+        updateSearchBar()
         
         suggestionsLoader.delegate = self
         
         self.tableView.rowHeight = 100
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     // MARK: -
     
-    func textFieldDidChange(field: UITextField) {
-        suggestionsLoader.loadSuggestions(forFragment: field.text)
+    func updateSearchBar() {
+        searchBar.showsCancelButton = false
+        searchBar.delegate = self
+        searchBar.autocapitalizationType = .none
+        searchBar.autocorrectionType = .no
+        self.navigationItem.titleView = searchBar
+        searchBar.becomeFirstResponder()
     }
 
     // MARK: - Table view data source
@@ -66,18 +56,13 @@ class RootViewController: UITableViewController {
         }
         return UITableViewCell()
     }
+}
+
+extension RootViewController: UISearchBarDelegate {
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        suggestionsLoader.loadSuggestions(forFragment: searchText)
     }
-    */
-
 }
 
 extension RootViewController: ZowdowSuggestionsLoaderDelegate {
