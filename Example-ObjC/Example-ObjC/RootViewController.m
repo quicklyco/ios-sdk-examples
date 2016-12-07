@@ -47,19 +47,19 @@
 
 #pragma mark -
 
--(void)textFieldDidChange :(UITextField *)theTextField{
-    [self.suggestionsLoader loadSuggestionsForFragment: theTextField.text];
+- (void)textFieldDidChange:(UITextField *)field{
+    [self.suggestionsLoader loadSuggestionsForFragment: field.text];
 }
     
 #pragma mark - ZowdowSuggestionsLoaderDelegate
 
--(void)zowdowSuggestionsLoader:(ZowdowSuggestionsLoader *)loader didReceiveSuggestions:(ZowdowSuggestionsContainer *)container
+- (void)zowdowSuggestionsLoader:(ZowdowSuggestionsLoader *)loader didReceiveSuggestions:(ZowdowSuggestionsContainer *)container
 {
     self.suggestionsContainer = container;
     [self.tableView reloadData];
 }
 
--(void)zowdowSuggestionsLoader:(ZowdowSuggestionsLoader *)loader didFailWithError:(NSError *)error
+- (void)zowdowSuggestionsLoader:(ZowdowSuggestionsLoader *)loader didFailWithError:(NSError *)error
 {
     NSLog(@"%@", error.localizedDescription);
 }
