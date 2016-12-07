@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C293C24CB89854CC2B68D020 /* Pods_Example_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EBB643440220DC73EE4AD32 /* Pods_Example_Swift.framework */; };
+		D55850E91DF80C3E006519DA /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55850E81DF80C3E006519DA /* RootViewController.swift */; };
 		D5DE74AC1DF6D69400EE1D11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE74AB1DF6D69400EE1D11 /* AppDelegate.swift */; };
-		D5DE74AE1DF6D69400EE1D11 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE74AD1DF6D69400EE1D11 /* ViewController.swift */; };
 		D5DE74B11DF6D69400EE1D11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5DE74AF1DF6D69400EE1D11 /* Main.storyboard */; };
 		D5DE74B31DF6D69400EE1D11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5DE74B21DF6D69400EE1D11 /* Assets.xcassets */; };
 		D5DE74B61DF6D69400EE1D11 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5DE74B41DF6D69400EE1D11 /* LaunchScreen.storyboard */; };
@@ -18,9 +18,10 @@
 /* Begin PBXFileReference section */
 		1EBB643440220DC73EE4AD32 /* Pods_Example_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AE96A9A714275B1F127CB8B /* Pods-Example-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example-Swift/Pods-Example-Swift.release.xcconfig"; sourceTree = "<group>"; };
+		D55850E81DF80C3E006519DA /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		D55850EA1DF8113C006519DA /* Example-Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Example-Swift-Bridging-Header.h"; sourceTree = "<group>"; };
 		D5DE74A81DF6D69400EE1D11 /* Example-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5DE74AB1DF6D69400EE1D11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D5DE74AD1DF6D69400EE1D11 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D5DE74B01DF6D69400EE1D11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D5DE74B21DF6D69400EE1D11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D5DE74B51DF6D69400EE1D11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -79,11 +80,12 @@
 			isa = PBXGroup;
 			children = (
 				D5DE74AB1DF6D69400EE1D11 /* AppDelegate.swift */,
-				D5DE74AD1DF6D69400EE1D11 /* ViewController.swift */,
+				D55850E81DF80C3E006519DA /* RootViewController.swift */,
 				D5DE74AF1DF6D69400EE1D11 /* Main.storyboard */,
 				D5DE74B21DF6D69400EE1D11 /* Assets.xcassets */,
 				D5DE74B41DF6D69400EE1D11 /* LaunchScreen.storyboard */,
 				D5DE74B71DF6D69400EE1D11 /* Info.plist */,
+				D55850EA1DF8113C006519DA /* Example-Swift-Bridging-Header.h */,
 			);
 			path = "Example-Swift";
 			sourceTree = "<group>";
@@ -123,6 +125,7 @@
 				TargetAttributes = {
 					D5DE74A71DF6D69400EE1D11 = {
 						CreatedOnToolsVersion = 8.1;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -211,8 +214,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5DE74AE1DF6D69400EE1D11 /* ViewController.swift in Sources */,
 				D5DE74AC1DF6D69400EE1D11 /* AppDelegate.swift in Sources */,
+				D55850E91DF80C3E006519DA /* RootViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,10 +339,13 @@
 			baseConfigurationReference = FF20C3D3729C9EDBBE9740ED /* Pods-Example-Swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Example-Swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zowdow.sample.swift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Example-Swift/Example-Swift-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -349,10 +355,12 @@
 			baseConfigurationReference = 5AE96A9A714275B1F127CB8B /* Pods-Example-Swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Example-Swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zowdow.sample.swift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Example-Swift/Example-Swift-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
