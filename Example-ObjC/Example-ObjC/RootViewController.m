@@ -21,9 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [ZowdowSDK sharedInstance].appKey = @"some key";
-    
+        
     [self createSearchBar];
     
     self.suggestionsLoader = [[ZowdowSuggestionsLoader alloc] init];

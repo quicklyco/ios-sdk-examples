@@ -16,8 +16,6 @@ class RootViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        ZowdowSDK.sharedInstance().appKey = "some key"
         
         updateSearchBar()
         
