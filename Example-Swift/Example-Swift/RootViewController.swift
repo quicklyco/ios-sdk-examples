@@ -48,7 +48,7 @@ class RootViewController: UITableViewController {
 
         if let contatiner = suggestionsContainer {
             let config = ZowdowSuggestionCellConfiguration.default()
-            if let cell = contatiner.cell(for: tableView, at: indexPath, configuration: config, cardsCarouselType: ZowdowLinearBCarouselType) {
+            if let cell = contatiner.cell(for: tableView, at: indexPath, configuration: config, cardsCarouselType: ZowdowLinearFull) {
                 return cell
             }
         }
