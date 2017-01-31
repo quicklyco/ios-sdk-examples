@@ -9,7 +9,7 @@
 #import "RootViewController.h"
 #import "ZowdowSDK.h"
 
-@interface RootViewController () <ZowdowSuggestionsLoaderDelegate, UISearchBarDelegate>
+@interface RootViewController () <UISearchBarDelegate>
     
 @property (nonatomic, strong) ZowdowSuggestionsLoader *suggestionsLoader;
 @property (nonatomic, strong) ZowdowSuggestionsContainer *suggestionsContainer;
@@ -25,7 +25,6 @@
     [self createSearchBar];
     
     self.suggestionsLoader = [[ZowdowSuggestionsLoader alloc] init];
-    self.suggestionsLoader.delegate = self;
     
     self.tableView.rowHeight = 100;
 }
@@ -43,23 +42,18 @@
     [self.searchBar becomeFirstResponder];
 }
 
-#pragma mark - ZowdowSuggestionsLoaderDelegate
-
-- (void)zowdowSuggestionsLoader:(ZowdowSuggestionsLoader *)loader didReceiveSuggestions:(ZowdowSuggestionsContainer *)container
-{
-    self.suggestionsContainer = container;
-    [self.tableView reloadData];
-}
-
-- (void)zowdowSuggestionsLoader:(ZowdowSuggestionsLoader *)loader didFailWithError:(NSError *)error
-{
-    NSLog(@"%@", error.localizedDescription);
-}
-
 #pragma mark - UISearchBarDelegate
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    [self.suggestionsLoader loadSuggestionsForFragment: searchText];
+    [self.suggestionsLoader loadSuggestionsForFragment:searchText completionHandler:^(ZowdowSuggestionsContainer * _Nullable suggestions, NSError * _Nullable error) {
+        if (!error) {
+            self.suggestionsContainer = suggestions;
+            [self.tableView reloadData];
+        }
+        else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 #pragma mark - Table view data source
@@ -77,7 +71,7 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"CarouselCell"];
     if (self.suggestionsContainer) {
         ZowdowSuggestionCellConfiguration *config = [ZowdowSuggestionCellConfiguration defaultConfiguration];
-        cell = [self.suggestionsContainer cellForTableView:tableView atIndexPath:indexPath configuration:config cardsCarouselType:ZowdowLinearFull];
+        cell = [self.suggestionsContainer cellForTableView:tableView atIndexPath:indexPath configuration:config cardsCarouselType:ZowdowCarouselTypeStream];
     }    
     return cell;
 }
