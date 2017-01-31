@@ -19,8 +19,6 @@ class RootViewController: UITableViewController {
         
         updateSearchBar()
         
-        suggestionsLoader.delegate = self
-        
         self.tableView.rowHeight = 100
     }
 
@@ -48,7 +46,7 @@ class RootViewController: UITableViewController {
 
         if let contatiner = suggestionsContainer {
             let config = ZowdowSuggestionCellConfiguration.default()
-            if let cell = contatiner.cell(for: tableView, at: indexPath, configuration: config, cardsCarouselType: ZowdowLinearFull) {
+            if let cell = contatiner.cell(for: tableView, at: indexPath, configuration: config, cardsCarouselType: ZowdowCarouselTypeStream) {
                 return cell
             }
         }
@@ -59,21 +57,17 @@ class RootViewController: UITableViewController {
 extension RootViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        suggestionsLoader.loadSuggestions(forFragment: searchText)
-    }
-}
-
-extension RootViewController: ZowdowSuggestionsLoaderDelegate {
-    
-    func zowdowSuggestionsLoader(_ loader: ZowdowSuggestionsLoader!, didReceiveSuggestions container: ZowdowSuggestionsContainer!) {
-        self.suggestionsContainer = container
-        self.tableView.reloadData()
-    }
-    
-    func zowdowSuggestionsLoader(_ loader: ZowdowSuggestionsLoader!, didFailWithError error: Error!) {
-        guard let error = error else {
-            return
+        suggestionsLoader.loadSuggestions(forFragment: searchText) { (suggestions: ZowdowSuggestionsContainer?, error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+                self.suggestionsContainer = nil
+            }
+            if let suggestions = suggestions {
+                self.suggestionsContainer = suggestions
+            } else {
+                self.suggestionsContainer = nil
+            }
+            self.tableView.reloadData()
         }
-        print("Error", error.localizedDescription)
     }
 }
