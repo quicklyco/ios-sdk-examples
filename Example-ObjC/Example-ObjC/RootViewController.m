@@ -48,11 +48,11 @@
     [self.suggestionsLoader loadSuggestionsForFragment:searchText completionHandler:^(ZowdowSuggestionsContainer * _Nullable suggestions, NSError * _Nullable error) {
         if (!error) {
             self.suggestionsContainer = suggestions;
-            [self.tableView reloadData];
         }
         else {
             NSLog(@"%@", error.localizedDescription);
         }
+        [self.tableView reloadData];
     }];
 }
 
