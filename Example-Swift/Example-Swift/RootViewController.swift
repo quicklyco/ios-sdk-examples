@@ -10,7 +10,7 @@ import UIKit
 
 class RootViewController: UITableViewController {
     
-    let suggestionsLoader = ZowdowSuggestionsLoader()
+    var suggestionsLoader: ZowdowSuggestionsLoader!
     var suggestionsContainer: ZowdowSuggestionsContainer?
     let searchBar = UISearchBar()
     
@@ -20,6 +20,8 @@ class RootViewController: UITableViewController {
         updateSearchBar()
         
         self.tableView.rowHeight = 100
+        
+        suggestionsLoader = ZowdowSDK.sharedInstance().loader()
     }
 
     // MARK: -
