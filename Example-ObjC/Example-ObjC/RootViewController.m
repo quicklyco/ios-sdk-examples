@@ -24,7 +24,7 @@
         
     [self createSearchBar];
     
-    self.suggestionsLoader = [[ZowdowSuggestionsLoader alloc] init];
+    self.suggestionsLoader = [ZowdowSDK sharedInstance].loader;
     
     self.tableView.rowHeight = 100;
 }
